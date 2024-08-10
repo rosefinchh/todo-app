@@ -17,26 +17,25 @@ function Todo() {
 
   return (
     <div className="mt-8 ml-10">
-      Title
+      <span className="font-semibold">Title</span>
       <input
         type="text"
-        placeholder="eg. Go to gym"
-        className="ml-1 mr-1 border pl-1"
+        placeholder="eg. Buy groceries"
+        className="ml-1 mr-10 border p-2"
         onChange={(e) => {
           captureTodoTitle(e);
         }}
       />
-      Description
+      <span className="font-semibold">Description</span>
       <input
         type="text"
-        placeholder="eg. Do pushups today."
-        className="ml-1 border pl-1"
+        placeholder="eg. Buy milk, eggs, bread"
+        className="ml-1 mr-10 border p-2"
         onChange={(e) => {
           captureTodoDescription(e);
         }}
       />
-      <button
-        className="border p-1 ml-1"
+      <AddButton
         onClick={() => {
           setTodos([
             ...todos,
@@ -46,9 +45,7 @@ function Todo() {
             },
           ]);
         }}
-      >
-        Add Todo
-      </button>
+      />
       <div>
         {todos.map((todo, index) => {
           return (
@@ -70,15 +67,65 @@ function Todo() {
   );
 }
 
-function TodoRenderer({ serialNumber, title, description }) {
+export function TodoRenderer({ serialNumber, title, description }) {
   return (
-    <div className="flex items-center text-xl border p-5 w-full mr-8">
-      <span className="mr-2 justify-center">{serialNumber}.</span>
-      <h1 className="mr-5">{title}</h1>
-      <div>
-        <h3>{description}</h3>
+    <div className="shadow-md m-5 border p-5 w-full">
+      <div className="flex">
+        <div className="h-fit border-r">
+          <div className="text-xl mr-1 p-1 items-center">#{serialNumber}</div>
+        </div>
+        <div className="flex place-content-between w-[100%] ml-3">
+          <div>
+            <div className="text-xl text-wrap">{title}</div>
+            <div className="text-sm text-wrap">Description: {description}</div>
+          </div>
+          <div className="flex">
+            <div className="mr-2">
+              <DeleteButton />
+            </div>
+            <div>
+              <CompleteButton />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  );
+}
+
+function AddButton({ onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      type="button"
+      className="focus:outline-none text-white bg-purple-700  font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700"
+    >
+      Add todo
+    </button>
+  );
+}
+
+function DeleteButton({ onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      type="button"
+      className="focus:outline-none text-white bg-red-700  font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700"
+    >
+      Delete this todo
+    </button>
+  );
+}
+
+function CompleteButton({ onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      type="button"
+      className="focus:outline-none text-white bg-green-700  font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-green-600 dark:hover:bg-green-700"
+    >
+      Mark this todo as completed
+    </button>
   );
 }
 

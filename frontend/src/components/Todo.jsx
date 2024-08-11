@@ -1,9 +1,16 @@
 import { useState } from "react";
+import { AddButton } from "./Buttons";
+import { useRecoilState } from "recoil";
+import { todoAtom } from "../store/atoms/todoAtom";
+import { TodoRenderer } from "./Todorenderer";
+
+let globalId = 0;
 
 function Todo() {
   const [todoTitle, setTodoTitle] = useState("");
   const [todoDescription, setTodoDescription] = useState("");
-  const [todos, setTodos] = useState([]);
+
+  const [todos, setTodos] = useRecoilState(todoAtom);
 
   let title = todoTitle;
   function captureTodoTitle(e) {
@@ -40,92 +47,32 @@ function Todo() {
           setTodos([
             ...todos,
             {
-              title: title,
-              description: description,
+              todoId: globalId++,
+              title,
+              description,
             },
           ]);
         }}
       />
       <div>
-        {todos.map((todo, index) => {
-          return (
-            <div className="flex items-center mt-8" key={index}>
-              {todos.length === 0 ? (
-                "No todo yet. Add todo."
-              ) : (
-                <TodoRenderer
-                  serialNumber={index + 1}
-                  title={todo.title}
-                  description={todo.description}
-                />
-              )}
-            </div>
-          );
-        })}
+        {todos.length === 0 ? (
+          <div className="text-2xl text-center mt-5 font-semibold italic">
+            No todo yet. Add Todo
+          </div>
+        ) : (
+          todos.map((todo, index) => {
+            return (
+              <TodoRenderer
+                key={index}
+                serialNumber={todo.todoId}
+                title={todo.title}
+                description={todo.description}
+              />
+            );
+          })
+        )}
       </div>
     </div>
-  );
-}
-
-export function TodoRenderer({ serialNumber, title, description }) {
-  return (
-    <div className="shadow-md m-5 border p-5 w-full">
-      <div className="flex">
-        <div className="h-fit border-r">
-          <div className="text-xl mr-1 p-1 items-center">#{serialNumber}</div>
-        </div>
-        <div className="flex place-content-between w-[100%] ml-3">
-          <div>
-            <div className="text-xl text-wrap">{title}</div>
-            <div className="text-sm text-wrap">Description: {description}</div>
-          </div>
-          <div className="flex">
-            <div className="mr-2">
-              <DeleteButton />
-            </div>
-            <div>
-              <CompleteButton />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function AddButton({ onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      type="button"
-      className="focus:outline-none text-white bg-purple-700  font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700"
-    >
-      Add todo
-    </button>
-  );
-}
-
-function DeleteButton({ onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      type="button"
-      className="focus:outline-none text-white bg-red-700  font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700"
-    >
-      Delete this todo
-    </button>
-  );
-}
-
-function CompleteButton({ onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      type="button"
-      className="focus:outline-none text-white bg-green-700  font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-green-600 dark:hover:bg-green-700"
-    >
-      Mark this todo as completed
-    </button>
   );
 }
 

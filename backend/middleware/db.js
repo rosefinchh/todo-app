@@ -16,7 +16,7 @@ async function checkIfSameUserExists(req, res, next) {
 
   if (userFound) {
     return res.json({
-      msg: "user with same email already exists, try different one",
+      msg: "USER EXISTS",
     });
   } else {
     next();

@@ -1,4 +1,7 @@
 const zod = require("zod");
+const { PrismaClient } = require("@prisma/client");
+
+const prisma = new PrismaClient();
 
 // zod schema for signup parameters
 const UserSignupSchema = zod.object({

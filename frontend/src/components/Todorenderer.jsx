@@ -1,9 +1,13 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { CompleteButton, DeleteButton } from "./Buttons";
-import { todoAtom } from "../store/atoms/todoAtom";
+import { todoAtom, todoTitle } from "../store/atoms/todoAtom";
+import { useEffect } from "react";
 
 export function TodoRenderer({ serialNumber, title, description }) {
   const [todos, setTodos] = useRecoilState(todoAtom);
+  const todoTitle = useRecoilValue(todoTitle);
+
+  useEffect(() => {}, []);
 
   return (
     <div className="shadow-md m-5 border p-5 w-full">
@@ -16,7 +20,16 @@ export function TodoRenderer({ serialNumber, title, description }) {
         <div className="flex place-content-between w-[100%] ml-3">
           <div>
             <div className="text-xl text-wrap">{title}</div>
-            <div className="text-sm text-wrap">Description: {description}</div>
+            <div className="text-sm text-wrap">
+              Description:{" "}
+              {description ? (
+                description
+              ) : (
+                <span className="italic font-semibold">
+                  No description provided for this To-do
+                </span>
+              )}
+            </div>
           </div>
           <div className="flex">
             <div className="mr-2">

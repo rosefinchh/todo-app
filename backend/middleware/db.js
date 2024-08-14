@@ -15,7 +15,7 @@ async function checkIfSameUserExists(req, res, next) {
   });
 
   if (userFound) {
-    return res.json({
+    return res.status(400).json({
       msg: "USER EXISTS",
     });
   } else {

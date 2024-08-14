@@ -23,7 +23,7 @@ router.post(
 
     await newUserSignup(firstName, lastName, email, hashedPassword);
 
-    return res.json({
+    return res.status(200).json({
       msg: "User has signed up !",
     });
   }
@@ -32,7 +32,7 @@ router.post(
 router.post("/signin", userSigninMiddleware, (req, res) => {
   const { email, password } = req.body;
 
-  res.json({
+  res.status(200).json({
     msg: response,
   });
 });

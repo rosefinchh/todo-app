@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 
 // zod schema for signup parameters
 const UserSignupSchema = zod.object({
-  firstName: zod.string().trim(),
-  lastName: zod.string().trim(),
-  email: zod.string().email().trim(),
-  password: zod.string().trim(),
+  firstName: zod.string().min(1).trim(),
+  lastName: zod.string().min(1).trim(),
+  email: zod.string().email().min(1).trim(),
+  password: zod.string().min(1).trim(),
 });
 
 // signup middleware
@@ -25,8 +25,9 @@ function userSignupMiddleware(req, res, next) {
   if (parsedInput.success) {
     next();
   } else {
-    return res.json({
+    return res.status(400).json({
       msg: "check the signup inputs you have provided. some error occurred",
+      status: 400,
     });
   }
 }

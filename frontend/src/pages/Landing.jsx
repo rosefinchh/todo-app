@@ -1,28 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import Topbar from "../components/Topbar";
 
-function Landing() {
-  const navigate = useNavigate();
-
+export default function Landing() {
   return (
-    <div>
-      <button
-        className="border p-5 mr-5"
-        onClick={() => {
-          navigate("/signup");
-        }}
-      >
-        Signup page
-      </button>
-      <button
-        className="border p-5"
-        onClick={() => {
-          navigate("/signin");
-        }}
-      >
-        Signin page
-      </button>
+    <div className="bg-black text-white h-screen">
+      <HeroSection />
     </div>
   );
 }
 
-export default Landing;
+function HeroSection() {
+  return (
+    <div>
+      <h1 className="text-5xl">To-Do Application</h1>
+    </div>
+  );
+}

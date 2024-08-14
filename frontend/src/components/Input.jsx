@@ -8,6 +8,7 @@ function Input({ label, placeholder, onChange }) {
           onChange={onChange}
           type="password"
           placeholder={placeholder}
+          required
           className="border p-1 rounded-sm text-black pr-3 pl-2"
         />
       ) : (
@@ -15,6 +16,7 @@ function Input({ label, placeholder, onChange }) {
           onChange={onChange}
           type="text"
           placeholder={placeholder}
+          required
           className="border p-1 rounded-sm text-black pr-3 pl-2"
         />
       )}

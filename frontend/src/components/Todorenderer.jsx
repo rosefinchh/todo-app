@@ -1,13 +1,10 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { CompleteButton, DeleteButton } from "./Buttons";
-import { todoAtom, todoTitle } from "../store/atoms/todoAtom";
-import { useEffect } from "react";
+import { todoAtom } from "../store/atoms/todoAtom";
 
 export function TodoRenderer({ serialNumber, title, description }) {
   const [todos, setTodos] = useRecoilState(todoAtom);
   const todoTitle = useRecoilValue(todoTitle);
-
-  useEffect(() => {}, []);
 
   return (
     <div className="shadow-md m-5 border p-5 w-full">

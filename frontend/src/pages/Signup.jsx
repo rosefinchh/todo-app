@@ -14,8 +14,8 @@ function Signup() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-screen flex justify-center">
-      <div className="mx-40 w-1/3 mt-20 mb-6 rounded-md border shadow-md">
+    <div className="flex justify-center">
+      <div className="py-5 mx-40 w-1/3 mt-20 mb-6 rounded-md border shadow-md">
         <Heading
           label={"Signup"}
           informationalMessage={"Create a new account to register"}
@@ -69,8 +69,12 @@ function Signup() {
               );
 
               {
-                response.data.msg === "USER EXISTS"
-                  ? navigate("/error/userexists")
+                console.log(response);
+              }
+
+              {
+                response.status === "400"
+                  ? navigate("/error/400")
                   : navigate("/dashboard");
               }
             }}

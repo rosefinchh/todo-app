@@ -4,7 +4,6 @@ import { todoAtom } from "../store/atoms/todoAtom";
 
 export function TodoRenderer({ serialNumber, title, description }) {
   const [todos, setTodos] = useRecoilState(todoAtom);
-  const todoTitle = useRecoilValue(todoTitle);
 
   return (
     <div className="shadow-md m-5 border p-5 w-full">
@@ -16,7 +15,7 @@ export function TodoRenderer({ serialNumber, title, description }) {
         </div>
         <div className="flex place-content-between w-[100%] ml-3">
           <div>
-            <div className="text-xl text-wrap">{title}</div>
+            <div className="text-xl text-wrap">Title:{title}</div>
             <div className="text-sm text-wrap">
               Description:{" "}
               {description ? (
@@ -30,14 +29,7 @@ export function TodoRenderer({ serialNumber, title, description }) {
           </div>
           <div className="flex">
             <div className="mr-2">
-              <DeleteButton
-                onClick={() => {
-                  console.log(todos);
-                  todos.splice(serialNumber - 1, 1);
-                  setTodos([...todos]);
-                  console.log(todos);
-                }}
-              />
+              <DeleteButton />
             </div>
             <div>
               <CompleteButton />

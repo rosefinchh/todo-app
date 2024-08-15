@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { AddButton } from "./Buttons";
 import { useRecoilState } from "recoil";
 import { todoAtom, todoDescription, todoTitle } from "../store/atoms/todoAtom";
@@ -35,12 +34,14 @@ function Todo() {
             ...todos,
             {
               todoId: globalId++,
-              title,
-              description,
+              title: title,
+              description: description,
             },
           ]);
         }}
       />
+
+      {/* this div shows text if there are no todos */}
       <div>
         {todos.length === 0 ? (
           <div className="text-2xl text-center mt-5 font-semibold italic">

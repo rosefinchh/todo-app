@@ -2,8 +2,8 @@ import Topbar from "../components/Topbar";
 
 export default function Landing() {
   return (
-    <div className="bg-black text-white h-screen">
-      <HeroSection />
+    <div>
+      <Topbar />
     </div>
   );
 }

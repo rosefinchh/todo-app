@@ -1,8 +1,8 @@
 import { AddButton } from "./Buttons";
 import { useRecoilState } from "recoil";
 import { todoAtom, todoDescription, todoTitle } from "../store/atoms/todoAtom";
-import { TodoRenderer } from "./Todorenderer";
 import { TodoInputs } from "./Input";
+import Todorenderer from "./Todorenderer";
 
 let globalId = 0;
 
@@ -50,7 +50,7 @@ function Todo() {
         ) : (
           todos.map((todo, index) => {
             return (
-              <TodoRenderer
+              <Todorenderer
                 key={index}
                 serialNumber={todo.todoId}
                 title={todo.title}

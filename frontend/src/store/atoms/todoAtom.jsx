@@ -5,6 +5,11 @@ export const todoAtom = atom({
   default: [],
 });
 
+export const completedTodos = atom({
+  key: "completedTodos",
+  default: [],
+});
+
 export const todoTitle = atom({
   key: "todoTitle",
   default: "",

@@ -1,11 +1,12 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { CompleteButton, DeleteButton } from "./Buttons";
 import { todoAtom } from "../store/atoms/todoAtom";
 
-export function TodoRenderer({ serialNumber, title, description }) {
+export default function Todorenderer({ serialNumber, title, description }) {
   const [todos, setTodos] = useRecoilState(todoAtom);
 
   return (
+    // this div contains the individual todo
     <div className="shadow-md m-5 border p-5 w-full">
       <div className="flex">
         <div className="h-fit border-r">
@@ -15,7 +16,7 @@ export function TodoRenderer({ serialNumber, title, description }) {
         </div>
         <div className="flex place-content-between w-[100%] ml-3">
           <div>
-            <div className="text-xl text-wrap">Title:{title}</div>
+            <div className="text-xl text-wrap">Title: {title}</div>
             <div className="text-sm text-wrap">
               Description:{" "}
               {description ? (
@@ -27,6 +28,7 @@ export function TodoRenderer({ serialNumber, title, description }) {
               )}
             </div>
           </div>
+          {/* this div contains the delete button and the mark button in a single div set as flex */}
           <div className="flex">
             <div className="mr-2">
               <DeleteButton />

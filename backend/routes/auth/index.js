@@ -33,7 +33,8 @@ router.post("/signin", userSigninMiddleware, (req, res) => {
   const { email, password } = req.body;
 
   res.status(200).json({
-    msg: response,
+    msg: "signin successful",
+    response: { email, password },
   });
 });
 

@@ -47,8 +47,9 @@ function userSigninMiddleware(req, res, next) {
   if (parsedInput.success) {
     next();
   } else {
-    return res.json({
+    return res.Status(400).json({
       msg: "check the signin inputs you have provided. some error occurred",
+      status: 400,
     });
   }
 }

@@ -1,77 +1,71 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { todosAtom } from "../store/atoms/todoAtom";
+import { AddButton } from "./Button";
 
-
-
-
-function Input({onChange}) {
-	return (
-		<div>
-			<input type="text" placeholder="Enter title" onChange={onChange}/>
-		</div>
-	)
+function Input({ onChange, placeholder }) {
+  return (
+    <div className="items-center">
+      <input
+        type="text"
+        placeholder={placeholder}
+        maxLength={60}
+        className="border border-black mr-1 pl-2 rounded-md h-8"
+        onChange={onChange}
+      />
+    </div>
+  );
 }
 
 function InputContainer() {
-	const [title, setTitle] = useState("");
-	const [description, setDescription] = useState("");
-	const [todos, setTodos] = useRecoilState(todosAtom)
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [todos, setTodos] = useRecoilState(todosAtom);
 
-return (
-		<div className="flex">
-			<div>
-				Title <Input onChange={(e) => {
-					setTitle(e.target.value)
-				}}/>
-			</div>
+  return (
+    <div className="flex mt-5 justify-center border-b pb-2 items-center">
+      <div className="flex items-center mr-5">
+        <p className="font-semibold text-xl mr-1">Title</p>{" "}
+        <Input
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+          placeholder={"eg. Play Guitar"}
+        />
+      </div>
 
-			<div>
-				Description <Input onChange={(e) => {
-					setDescription(e.target.value)
-				}}/>
-			</div>
+      <div className="flex items-center">
+        <p className="font-semibold text-xl mr-1">Description</p>{" "}
+        <Input
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+          placeholder={"eg. Practice c# scale"}
+        />
+      </div>
 
-			<button onClick={() => {
-				setTodos([...todos, {
-					todoId: uuidv4(),
-					title: title,
-					description: description
-				}])
-			}}>Add</button>
-
-		</div>
-	)
-}
-
-export function TodoRenderer({serial, title, description, todoId}) {
-	const [todos, setTodos] = useRecoilState(todosAtom);
-	const todoIdToDelete = todos[serial-1].todoId;
-
-	return (
-		<div className="flex">
-			<div className="mr-2">{serial}</div>
-			<div className="font-bold mr-2">{title}</div>
-			<div className="mr-2">{description}</div>
-			<div className="mr-2">{todoId}</div>
-
-			<div>
-				<button onClick={() => {
-					const newArray = [...todos];
-
-					for (let i=0; i<todos.length; i++) {
-						if (todos[i].todoId === todoIdToDelete) {
-							newArray.splice(i, 1)
-						}
-					}
-
-					setTodos(newArray)
-				}}>Delete this todo</button>
-			</div>
-
-		</div>
-	)
+      <div className="items-center ml-4">
+        <AddButton
+          onClick={() => {
+            if (title === "") {
+              alert("No title is provided for the to-do");
+            } else {
+              setTodos([
+                ...todos,
+                {
+                  todoId: uuidv4(),
+                  title: title,
+                  description: description,
+                },
+              ]);
+            }
+          }}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default InputContainer;

@@ -3,16 +3,21 @@ import {
   signinMiddleware,
   signupMiddleware,
 } from "../middleware/authMiddleware";
-import signupDB from "../db/signup";
+import signupUser from "../db/signup";
 
 export const authenticationRouter = Router();
 
 // signup route
-authenticationRouter.post("/signup", signupMiddleware, signupDB, (req, res) => {
-  return res.json({
-    msg: "SignUp Successful",
-  });
-});
+authenticationRouter.post(
+  "/signup",
+  signupMiddleware,
+  signupUser,
+  (req, res) => {
+    return res.json({
+      msg: "SignUp Successful",
+    });
+  }
+);
 
 // signin route
 authenticationRouter.post("/signin", signinMiddleware, (req, res) => {

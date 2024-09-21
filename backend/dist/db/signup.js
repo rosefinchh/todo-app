@@ -9,30 +9,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = signupDB;
-const client_1 = require("@prisma/client");
+exports.default = signupUser;
 const hashpassword_1 = require("../utils/hashpassword");
+const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 // a new user signups and his details are stored in database
-function signupDB(req, res, next) {
+function signupUser(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const { firstname, lastname, email, password } = req.body;
         // user provided password is hashed
         const hashedpassword = yield (0, hashpassword_1.hashpassword)(password);
-        const newUser = yield prisma.user.create({
-            data: {
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
-                password: hashedpassword,
-            },
-        });
-        if (!newUser) {
-            return res.json({
-                msg: "some error occurred in database level",
+        try {
+            const newUser = yield prisma.user.create({
+                data: {
+                    firstname: firstname,
+                    lastname: lastname,
+                    email: email,
+                    password: hashedpassword,
+                },
             });
         }
-        console.log(newUser);
+        catch (e) {
+            console.log(e);
+            return res.json({
+                error: e,
+                msg: "some error occurred at db level",
+            });
+        }
         yield prisma.$disconnect();
         next();
     });

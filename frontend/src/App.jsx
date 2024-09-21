@@ -1,41 +1,22 @@
-import { useRecoilValue } from "recoil";
-import { todosAtom } from "./store/atoms/todoAtom";
-import InputContainer from "./components/Input";
-import TodoRenderer from "./components/Todo";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Landingpage from "./pages/Landingpage";
+import Signup from "./pages/Signup";
+import Signin from "./pages/Signin";
+import UserDashboard from "./pages/UserDashboard";
 
 // main app
 function App() {
-  const todos = useRecoilValue(todosAtom);
   return (
     // this div contains the whole app
     <div>
-      {/* this div contains the main app */}
-      <div className="p-2">
-        {/* this div contains the inputs from the user */}
-        <div>
-          <InputContainer />
-        </div>
-
-        {/* this div renders the todos */}
-        <div>
-          {todos.length === 0 ? (
-            <h1 className="text-3xl text-center italic">
-              No todos yet. Add todos
-            </h1>
-          ) : (
-            todos.map((todo, index) => {
-              return (
-                <TodoRenderer
-                  key={todo.todoId}
-                  serial={index + 1}
-                  title={todo.title}
-                  description={todo.description}
-                />
-              );
-            })
-          )}
-        </div>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landingpage />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/user/dashboard" element={<UserDashboard />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

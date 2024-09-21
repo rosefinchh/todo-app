@@ -7,13 +7,29 @@ import { AddButton } from "./Button";
 
 function Input({ onChange, placeholder }) {
   return (
-    <div className="items-center">
+    <div className="items-center mt-2">
       <input
         type="text"
         placeholder={placeholder}
         maxLength={60}
         className="border border-black mr-1 pl-2 rounded-md h-8"
         onChange={onChange}
+      />
+    </div>
+  );
+}
+
+export function AuthInput({ labelName, placeholder, type }) {
+  return (
+    <div className="my-2">
+      <label htmlFor={labelName} className="font-semibold">
+        {labelName}
+      </label>
+      <br />
+      <input
+        type={type}
+        placeholder={placeholder}
+        className="border border-black pl-2 py-1 rounded-sm w-60"
       />
     </div>
   );

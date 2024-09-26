@@ -7,6 +7,7 @@ import signupUser from "../db/signupDb";
 import "dotenv/config";
 import { tokenSign } from "../utils/jwtToken";
 import signinUser from "../db/signinDb";
+import { existingUser } from "../utils/existingUser";
 
 export const authenticationRouter = Router();
 
@@ -14,9 +15,10 @@ export const authenticationRouter = Router();
 authenticationRouter.post(
   "/signup",
   signupMiddleware,
+  existingUser,
   signupUser,
   (req, res) => {
-    const { firstname, lastname, email } = req.body;
+    const { firstname, email } = req.body;
     return res.status(200).json({
       msg: "SignUp Successful on authenticationRouter.post",
       token: tokenSign({ firstname, email }),

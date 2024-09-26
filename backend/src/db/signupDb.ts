@@ -18,6 +18,7 @@ export default async function signupUser(
 ) {
   const { firstname, lastname, email, password } = req.body;
 
+  // capitalized first letter of firstname and lastname
   const capitalizedFirstname = capitalizeFirstLetter(firstname);
   const capitalizedLastname = capitalizeFirstLetter(lastname);
 

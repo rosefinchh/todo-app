@@ -4,6 +4,12 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// function to capitalize the first letter of firstname and lastname
+function capitalizeFirstLetter(input: string) {
+  if (!input) return input;
+  return input.charAt(0).toUpperCase() + input.slice(1);
+}
+
 // a new user signups and his details are stored in database
 export default async function signupUser(
   req: Request,
@@ -12,14 +18,17 @@ export default async function signupUser(
 ) {
   const { firstname, lastname, email, password } = req.body;
 
+  const capitalizedFirstname = capitalizeFirstLetter(firstname);
+  const capitalizedLastname = capitalizeFirstLetter(lastname);
+
   // user provided password is hashed
   const hashedpassword = await hashpassword(password);
 
   try {
     const newUser = await prisma.user.create({
       data: {
-        firstname: firstname,
-        lastname: lastname,
+        firstname: capitalizedFirstname,
+        lastname: capitalizedLastname,
         email: email,
         password: hashedpassword,
       },

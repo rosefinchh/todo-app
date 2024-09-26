@@ -18,7 +18,7 @@ authenticationRouter.post(
   (req, res) => {
     const { firstname, lastname, email } = req.body;
     return res.status(200).json({
-      msg: "SignUp Successful",
+      msg: "SignUp Successful on authenticationRouter.post",
       token: tokenSign({ firstname, email }),
     });
   }

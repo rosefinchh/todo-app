@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/db/signin.ts","./src/db/signup.ts","./src/middleware/authmiddleware.ts","./src/routes/authentication.ts","./src/utils/hashpassword.ts"],"version":"5.6.2"}
+{"root":["./src/index.ts","./src/db/signindb.ts","./src/db/signupdb.ts","./src/middleware/authmiddleware.ts","./src/routes/authentication.ts","./src/utils/checkpassword.ts","./src/utils/hashpassword.ts","./src/utils/jwttoken.ts"],"version":"5.6.2"}

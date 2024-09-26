@@ -3,7 +3,10 @@ import {
   signinMiddleware,
   signupMiddleware,
 } from "../middleware/authMiddleware";
-import signupUser from "../db/signup";
+import signupUser from "../db/signupDb";
+import "dotenv/config";
+import { tokenSign } from "../utils/jwtToken";
+import signinUser from "../db/signinDb";
 
 export const authenticationRouter = Router();
 
@@ -13,21 +16,24 @@ authenticationRouter.post(
   signupMiddleware,
   signupUser,
   (req, res) => {
-    return res.json({
+    const { firstname, lastname, email } = req.body;
+    return res.status(200).json({
       msg: "SignUp Successful",
+      token: tokenSign({ firstname, email }),
     });
   }
 );
 
 // signin route
-authenticationRouter.post("/signin", signinMiddleware, (req, res) => {
-  const { email, password } = req.body;
+authenticationRouter.post(
+  "/signin",
+  signinMiddleware,
+  signinUser,
+  (req, res) => {
+    const { email, password } = req.body;
 
-  return res.json({
-    msg: "Signin Successful",
-    response: {
-      email,
-      password,
-    },
-  });
-});
+    return res.status(200).json({
+      msg: "Signin Successful on authenticationRouter.post",
+    });
+  }
+);

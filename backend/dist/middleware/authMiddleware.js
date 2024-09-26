@@ -37,7 +37,7 @@ function signupMiddleware(req, res, next) {
         password,
     });
     if (!result.success) {
-        return res.json({
+        return res.status(400).json({
             msg: "Some wrong inputs were passed in firstname, lastname, email or password",
         });
     }

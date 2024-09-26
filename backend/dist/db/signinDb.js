@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = signinUser;
 const client_1 = require("@prisma/client");
+const checkpassword_1 = require("../utils/checkpassword");
 const prisma = new client_1.PrismaClient();
 // a new user signups and his details are stored in database
 function signinUser(req, res, next) {
@@ -23,7 +24,20 @@ function signinUser(req, res, next) {
                     email: email,
                 },
             });
-            console.log(user);
+            const dbhashedPassword = user === null || user === void 0 ? void 0 : user.password;
+            const verifiedPassword = yield (0, checkpassword_1.checkpassword)(password, dbhashedPassword);
+            if (verifiedPassword) {
+                return res.json({
+                    msg: "signin was successful and a token will be sent",
+                    token: "jw983nfww9",
+                });
+                next();
+            }
+            else {
+                return res.json({
+                    msg: "password or email is not correct",
+                });
+            }
         }
         catch (e) {
             console.log(e);

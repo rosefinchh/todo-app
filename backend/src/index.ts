@@ -1,8 +1,15 @@
 import express, { NextFunction, Request, Response } from "express";
 import { authenticationRouter } from "./routes/authentication";
+import cors from "cors";
+
 const app = express();
 
+app.use(cors());
 app.use(express.json());
+
+app.get("/hello", (req, res) => {
+  res.send(`hello ${req.query.person}`);
+});
 
 app.use("/user/auth", authenticationRouter);
 

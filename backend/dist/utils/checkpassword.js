@@ -8,27 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = signinUser;
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
-// a new user signups and his details are stored in database
-function signinUser(req, res, next) {
+exports.checkpassword = checkpassword;
+const bcrypt_1 = __importDefault(require("bcrypt"));
+/**
+ * this function checks the password
+ * provided by the user at signin time
+ *
+ */
+function checkpassword(plaintextPassword, hash) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { email, password } = req.body;
-        // user provided password is hashed
-        try {
-            const user = yield prisma.user.findUnique({
-                where: {
-                    email: email,
-                },
-            });
-            console.log(user);
-        }
-        catch (e) {
-            console.log(e);
-        }
-        yield prisma.$disconnect();
-        next();
+        const result = yield bcrypt_1.default.compare(plaintextPassword, hash);
+        return result;
     });
 }

@@ -13,7 +13,11 @@ const signupSchema = zod.object({
   password: zod.string(),
 });
 
-// signin middleware
+/**
+ * signin middleware
+ * checks if user provided input is valid or not
+ * against the signin schema
+ */
 export function signinMiddleware(
   req: Request,
   res: Response,

@@ -3,6 +3,8 @@ import { NextFunction, Request, Response } from "express";
 
 const prisma = new PrismaClient();
 
+// checks from the db that if an user already
+// exists with the same email or not
 export async function existingUser(
   req: Request,
   res: Response,
@@ -17,8 +19,8 @@ export async function existingUser(
   });
 
   if (userExists?.email === email) {
-    return res.status(422).json({
-      msg: "Email already in use. Use different email",
+    return res.status(403).json({
+      msg: "An user with this email already exists. Use different email",
     });
   }
 

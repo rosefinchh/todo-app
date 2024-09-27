@@ -20,7 +20,7 @@ authenticationRouter.post(
   (req, res) => {
     const { firstname, email } = req.body;
     return res.status(200).json({
-      msg: "SignUp Successful on authenticationRouter.post",
+      msg: "SignUp Successful",
       token: tokenSign({ firstname, email }),
     });
   }
@@ -32,10 +32,6 @@ authenticationRouter.post(
   signinMiddleware,
   signinUser,
   (req, res) => {
-    const { email, password } = req.body;
-
-    return res.status(200).json({
-      msg: "Signin Successful on authenticationRouter.post",
-    });
+    return res.json({});
   }
 );
